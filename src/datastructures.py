@@ -21,12 +21,12 @@ class FamilyStructure:
              'age':33,
              'lucky numbers':[7,13,22]},
              {#"id": self._generateId(),
-             'id':3,
+             'id':2,
              'firstName':"Jane",
              'lastName':self.last_name,
              'age':39,
              "lucky numbers":[10,14,3]},
-             {"id": self._generateId(),
+             {"id": 3,
              "firstName":"Jimmy",
              'lastName':self.last_name,
              'age':5,
@@ -38,10 +38,10 @@ class FamilyStructure:
 
     def add_member(self, member):
         # fill this method and update the return
-        member["id"]=self._generateId()
+        #member["id"]=self._generateId()
         member["lastName"]=self.last_name
         self._members.append(member)
-        return self._members
+        return self._members  
 
     def update_member(self, id, member):
         ## you have to implement this method
@@ -50,9 +50,9 @@ class FamilyStructure:
         member["id"]=id
         add_member(member)
 
-    def delete_member(self, id):
+    def delete_member(self, member_id):
         for member in self._members:
-            if member["id"] == id:
+            if member['id'] == member_id:
                 self._members.remove(member)
                 return True
                 
@@ -60,11 +60,14 @@ class FamilyStructure:
 
     def get_member(self, member_id):
         # fill this method and update the return
-        x=list(filter(lambda member : member["id"]==member_id,self._members))
-        if(x==None):
-            return x
-        return x
-
+        #x=list(filter(lambda member : member["id"]==member_id,self._members))
+        #if(x==None):
+            #return x
+        #return x
+        for member in self._members:
+            if(member["id"]==member_id):
+                return member
+        
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
         return self._members

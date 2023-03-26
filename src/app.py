@@ -35,31 +35,35 @@ def get_members():
 
     return jsonify(response_body), 200
 
-@app.route('/member/<int:member_id>', methods=['GET'])
-def get_member_by_id(member_id):
-    response_body = jackson_family.get_member(member_id)
+@app.route('/member/<int:id>', methods=['GET'])
+def get_member_by_id(id):
+    response_body = jackson_family.get_member(id)
     if response_body == None:
-        return jsonify({"message": "Ha ocurrido un error"}, 400)
+        return jsonify ({"made": "Ha ocurrido un error"})
 
-    return jsonify(response_body), 200
+    return jsonify(response_body),200
 
 
 @app.route('/member/<int:member_id>', methods=['DELETE'])
 def delete_member(member_id):
 
-    if(jackson_family.delete_member(member_id)):
-        return jsonify({"done": "Miembro eliminado"}, 200)
+    response_body = {"done": jackson_family.delete_member(member_id)}
+    if response_body == None:
+        return jsonify({"message": "Ha ocurrido un error"}), 400
 
-    return jsonify({"done": "Ha ocurrido un error"}, 400)
+    return jsonify(response_body), 200
 
 @app.route('/member', methods=['POST'])
 def add_member():
     request_body = request.json
+    if request_body['first_name'] == None:
+        return jsonify({"done": "Ha ocurrido un error"}), 400
+
     member = { 'first_name': request_body['first_name'],
+                'id':request_body['id'],
               'age': request_body['age'],
               'lucky_numbers': request_body['lucky_numbers']}
-    if member == None:
-        return jsonify({"message": "Ha ocurrido un error"}), 400
+    
 
     response_body = jackson_family.add_member(member)
     return jsonify(response_body), 200
