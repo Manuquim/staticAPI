@@ -14,21 +14,23 @@ class FamilyStructure:
 
         # example list of members
         self._members = [
-            {"id": self._generateId(),
-             "firstName":"John",
-             "lastName":last_name,
-             "age":33,
-             "lucky numbers":[2,4,6]},
+            {#"id": self._generateId(),
+            'id': 1,
+             'firstName':"John",
+             'lastName':self.last_name,
+             'age':33,
+             'lucky numbers':[7,13,22]},
+             {#"id": self._generateId(),
+             'id':3,
+             'firstName':"Jane",
+             'lastName':self.last_name,
+             'age':39,
+             "lucky numbers":[10,14,3]},
              {"id": self._generateId(),
-             "firstName":"Michael",
-             "lastName":last_name,
-             "age":39,
-             "lucky numbers":[3,5,6]},
-             {"id": self._generateId(),
-             "firstName":"Rihanna",
-             "lastName":last_name,
-             "age":23,
-             "lucky numbers":[1,4]}]
+             "firstName":"Jimmy",
+             'lastName':self.last_name,
+             'age':5,
+             'lucky numbers':[1]}]
 
     # read-only: Use this method to generate random members ID's when adding members into the list
     def _generateId(self):
@@ -36,15 +38,32 @@ class FamilyStructure:
 
     def add_member(self, member):
         # fill this method and update the return
-        pass
+        member["id"]=self._generateId()
+        member["lastName"]=self.last_name
+        self._members.append(member)
+        return self._members
+
+    def update_member(self, id, member):
+        ## you have to implement this method
+        ## loop the list and replace the member with the given id
+        delete_member(self, id)
+        member["id"]=id
+        add_member(member)
 
     def delete_member(self, id):
-        # fill this method and update the return
-        pass
+        for member in self._members:
+            if member["id"] == id:
+                self._members.remove(member)
+                return True
+                
+        return False
 
-    def get_member(self, id):
+    def get_member(self, member_id):
         # fill this method and update the return
-        pass
+        x=list(filter(lambda member : member["id"]==member_id,self._members))
+        if(x==None):
+            return x
+        return x
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
